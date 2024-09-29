@@ -4,3 +4,147 @@
 *:after {
   box-sizing: border-box;
 }
+
+:root {
+  /* Colors */
+  --primary-color: cornflowerblue;
+  --secondary-color: rgb(26, 26, 49);
+  --accent-color: rgb(0, 140, 255);
+
+  /* Fonts */
+  --heading-font: Montserrat, Helvetica, sans-serif;
+  --paragraph-font: "DM Sans", Helvetica, sans-serif;
+}
+
+header,
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--heading-font);
+}
+
+footer p {
+  margin-top: 50px;
+  margin-bottom: 0px;
+}
+
+/* Class Selectors */
+.siteName a {
+  font-size: 35px;
+}
+
+.navigation {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.navigation li {
+  flex: 1 1 100%;
+}
+
+.navigation a {
+  display: block;
+  font-family: var(--heading-font);
+  text-decoration: none;
+  text-align: center;
+  padding: 20px 0px;
+  background: var(--secondary-color);
+  color: white;
+}
+
+.navigation a:hover,
+.linkbox:hover {
+  text-decoration: underline;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 3fr 6fr 1fr;
+  grid-template-rows: 1fr 8fr 1fr;
+}
+
+.hero picture {
+  grid-column: 2/4;
+  grid-row: 1/3;
+  z-index: 1;
+}
+
+.hero img {
+  width: 100%;
+  height: fit-content;
+}
+
+.herolabel {
+  grid-column: 1/3;
+  grid-row: 2/3;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 1rem;
+  justify-self: center;
+  align-self: center;
+  padding: 20px;
+  color: var(--accent-color);
+  font-size: 0.75rem;
+  z-index: 2;
+}
+
+.herolabel h3 {
+  margin-top: 0px;
+}
+
+.linkbox {
+  color: rgb(26, 26, 49);
+  background: var(--primary-color);
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.img-container {
+  width: 100%;
+  border: solid 2px rgb(44, 44, 44);
+  background: var(--primary-color);
+  padding: 10px;
+  height: 100px;
+}
+
+.img-container img {
+  display: block;
+  margin: auto;
+}
+
+/* ID Selectors */
+#wrapper {
+  font-family: var(--paragraph-font);
+  padding: 10px 10px 5px;
+  max-width: 800px;
+  margin: 10px auto;
+  border-radius: 10px;
+  background: white;
+}
+
+#top-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+#top-header a {
+  text-decoration: none;
+  color: black;
+}
+
+#reviews li {
+  margin-bottom: 20px;
+}
+
+#upgrades {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+  text-align: center;
+}
