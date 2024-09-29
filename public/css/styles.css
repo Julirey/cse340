@@ -101,6 +101,8 @@ footer p {
   padding: 10px 20px;
   text-decoration: none;
   font-weight: bold;
+  display: block;
+  text-align: center;
 }
 
 .img-container {
