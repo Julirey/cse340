@@ -64,12 +64,11 @@ footer p {
 .hero {
   display: grid;
   grid-template-columns: 1fr 3fr 6fr 1fr;
-  grid-template-rows: 1fr 8fr 1fr;
 }
 
 .hero picture {
   grid-column: 2/4;
-  grid-row: 1/3;
+  grid-row: 1/2;
   z-index: 1;
 }
 
@@ -80,12 +79,12 @@ footer p {
 
 .herolabel {
   grid-column: 1/3;
-  grid-row: 2/3;
+  grid-row: 1/2;
   background: rgba(255, 255, 255, 0.8);
   padding: 1rem;
   justify-self: center;
   align-self: center;
-  padding: 20px;
+  padding: 5px;
   color: var(--accent-color);
   font-size: 0.75rem;
   z-index: 2;
