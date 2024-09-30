@@ -91,8 +91,8 @@ footer p {
   z-index: 2;
 }
 
-.herolabel h3 {
-  margin-top: 0px;
+.herolabel h2, .herolabel p {
+  margin: 0px;
 }
 
 .linkbox {
@@ -103,6 +103,7 @@ footer p {
   font-weight: bold;
   display: block;
   text-align: center;
+  margin-top: 10px;
 }
 
 .img-container {
