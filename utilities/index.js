@@ -38,9 +38,9 @@ Util.buildClassificationGrid = async function(data){
       + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
       + ' details"><img src="' + vehicle.inv_thumbnail 
       +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
-      +' on CSE Motors" /></a>'
+      +' on CSE Motors"></a>'
       grid += '<div class="namePrice">'
-      grid += '<hr />'
+      grid += '<hr>'
       grid += '<h2>'
       grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
       + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
@@ -68,8 +68,8 @@ Util.buildDetails = async function(data){
     grid = '<div id="detail-container">'
     grid += '<img src="' + vehicle.inv_image 
     +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
-    +' on CSE Motors" />'
-    grid += '<div class="info-card">'
+    +' on CSE Motors">'
+    grid += '<section class="info-card">'
     grid += '<h2>' + vehicle.inv_make + ' ' + vehicle.inv_model + ' Details</h2>'
     grid += '<table class="info-table"><tbody>'
     grid += '<tr><td><span class="first-word">Price:</span> '
@@ -80,6 +80,7 @@ Util.buildDetails = async function(data){
     grid += '<tr><td><span class="first-word">Color:</span> ' + vehicle.inv_color + '</td></tr>'
     grid += '<tr><td><span class="first-word">Mileage:</span> ' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + '</td></tr>'
     grid += '</tbody></table>'
+    grid += '</section>'
     grid += '</div>'
   } else { 
     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
