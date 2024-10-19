@@ -150,3 +150,62 @@ footer p {
   gap: 20px;
   text-align: center;
 }
+
+/* Classification page */
+#inv-display {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+  padding: 0px 20px;
+  list-style: none;
+  text-align: center;
+}
+
+#inv-display li {
+  border: solid rgb(173, 173, 173) 2px;
+  background-color: rgb(241, 253, 255);
+  border-radius: 10px;
+  overflow: hidden;
+  padding-bottom: 10px;
+  transition: 0.2s;
+  box-shadow: 5px 5px 10px #6f7364;
+}
+    
+#inv-display img, #detail-container img, #error-img {
+  display: block;
+  width: 100%;
+  height: fit-content;
+}
+
+#inv-display hr {
+  margin: 0;
+}
+
+/* Details page */
+#detail-container img {
+  border-bottom: solid var(--primary-color) 3px;
+  border-radius: 5px;
+}
+
+.first-word {
+  font-weight: bold;
+}
+
+.info-table {
+  border: solid grey 1px;
+  border-radius: 5px;
+}
+
+td {
+  padding: 20px;
+}
+
+.info-table tbody tr:nth-child(even) {
+  background-color: #f0f0f0;
+}
+
+/* Error page */
+#error-img {
+  margin-top: 20px;
+}

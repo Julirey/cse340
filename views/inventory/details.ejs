@@ -1,0 +1,9 @@
+<!-- The Content Heading -->
+<% if (title && year) { %>
+<h1><%= year %>  <%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<!-- Details Display -->
+<%- details %>

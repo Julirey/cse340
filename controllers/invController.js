@@ -19,4 +19,32 @@ invCont.buildByClassificationId = async function (req, res, next) {
   })
 }
 
+/* ***************************
+ *  Build inventory item details view
+ * ************************** */
+invCont.buildByInventoryID = async function (req, res, next) {
+  const inventoryId = req.params.invId
+  const data = await invModel.getDetailsByInventoryId(inventoryId)
+  const details = await utilities.buildDetails(data)
+  let nav = await utilities.getNav()
+  const carName = data[0].inv_make
+  const carModel = data[0].inv_model
+  const carYear = data[0].inv_year
+  res.render("./inventory/details", {
+    title: carName + " " + carModel,
+    year: carYear,
+    nav,
+    details,
+  })
+}
+
+/* ***************************
+ *  Purposely cause error 500
+ * ************************** */
+invCont.causeError = (req, res, next) => {
+  const error = new Error("Oh no! There was a crash. This time a deliberate one.");
+  error.status = 500;
+  throw error;
+};
+
 module.exports = invCont

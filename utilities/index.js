@@ -34,9 +34,9 @@ Util.buildClassificationGrid = async function(data){
     grid = '<ul id="inv-display">'
     data.forEach(vehicle => { 
       grid += '<li>'
-      grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
+      grid += '<a href="../../inv/detail/'+ vehicle.inv_id 
       + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
-      + 'details"><img src="' + vehicle.inv_thumbnail 
+      + ' details"><img src="' + vehicle.inv_thumbnail 
       +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
       +' on CSE Motors" /></a>'
       grid += '<div class="namePrice">'
@@ -52,6 +52,35 @@ Util.buildClassificationGrid = async function(data){
       grid += '</li>'
     })
     grid += '</ul>'
+  } else { 
+    grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+  }
+  return grid
+}
+
+/* **************************************
+* Build the details view HTML
+* ************************************ */
+Util.buildDetails = async function(data){
+  let vehicle = data[0];
+  let grid
+  if(data.length > 0){
+    grid = '<div id="detail-container">'
+    grid += '<img src="' + vehicle.inv_image 
+    +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
+    +' on CSE Motors" />'
+    grid += '<div class="info-card">'
+    grid += '<h2>' + vehicle.inv_make + ' ' + vehicle.inv_model + ' Details</h2>'
+    grid += '<table class="info-table"><tbody>'
+    grid += '<tr><td><span class="first-word">Price:</span> '
+    grid += '<span>$' 
+    + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
+    grid += '</td></tr>'
+    grid += '<tr><td><span class="first-word">Description:</span> ' + vehicle.inv_description + '</td></tr>'
+    grid += '<tr><td><span class="first-word">Color:</span> ' + vehicle.inv_color + '</td></tr>'
+    grid += '<tr><td><span class="first-word">Mileage:</span> ' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + '</td></tr>'
+    grid += '</tbody></table>'
+    grid += '</div>'
   } else { 
     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
   }

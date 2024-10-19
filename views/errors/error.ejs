@@ -2,8 +2,11 @@
 <% if (title) { %>
     <h1><%= title %></h1>
     <% } else {
-      res.redirect('/')
+      res.redirect('/') 
 } %>
 
 <!-- The Message -->
 <%- message %>
+
+<!-- Error Image -->
+<img id="error-img" src="/images/additional/car-route-error.jpg" alt="Car crashed into a tree">
