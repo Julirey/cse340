@@ -8,6 +8,15 @@
 <!-- Flash message -->
 <%- messages() %>
 
+<!-- Error messages -->
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
 <!-- Register form -->
 <div class="form-container">
   <form action="/account/register" method="POST" id="account-form">
@@ -39,6 +48,7 @@
     </label>
 
     <label>Password:
+      <span class="notice">Must be at least 12 characters long, and must include 1 capital letter, 1 number, and 1 special character.</span> 
     <input
       id="pword"
       type="password"

@@ -252,6 +252,10 @@ td {
   border-right: solid 8px green;
 }
 
+#account-form input:required:invalid {
+  border-right: solid 8px red;
+}
+
 #pswdBtn {
   display: block;
   margin: 10px 0px 0px auto; 
