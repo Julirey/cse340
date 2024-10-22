@@ -53,4 +53,9 @@
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
   }
+
+  /* Account page */
+  .form-container {
+    max-width: 500px;
+  }
 }

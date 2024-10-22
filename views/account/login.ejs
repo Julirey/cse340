@@ -1,0 +1,42 @@
+<!-- The Content Heading -->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/') 
+} %>
+
+<!-- Flash message -->
+<%- messages() %>
+
+<!-- Login form -->
+<div class="form-container" >
+  <form action="/account/login" method="POST" id="account-form">
+    <label>Email:
+    <input
+      type="email"
+      name="account_email"
+      required
+      value="<%= typeof account_email !== 'undefined' ? account_email : '' %>"
+    >
+    </label>
+
+    <label>Password:
+    <input
+      id="pword"
+      type="password"
+      name="account_password"
+      pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*]).{12,}"
+      required
+    >
+    <span id="pswdBtn">Show</span>
+    </label>
+
+    <input type="submit" value="LOGIN">
+    </form>
+
+    <p class="text-center">
+        No account? <a href="/account/register">Sign-up</a>.
+    </p>
+</div>
+
+<script src="/js/script.js"></script>
