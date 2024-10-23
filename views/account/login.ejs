@@ -8,6 +8,15 @@
 <!-- Flash message -->
 <%- messages() %>
 
+<!-- Error messages -->
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
 <!-- Login form -->
 <div class="form-container" >
   <form action="/account/login" method="POST" id="account-form">
@@ -16,7 +25,7 @@
       type="email"
       name="account_email"
       required
-      value="<%= typeof account_email !== 'undefined' ? account_email : '' %>"
+      value="<%= locals.account_email %>"
     >
     </label>
 
@@ -26,8 +35,9 @@
       id="pword"
       type="password"
       name="account_password"
-      pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*]).{12,}"
       required
+      pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*]).{12,}"
+      title="At least 12 characters long, and must include 1 capital letter, 1 number, and 1 special character."
     >
     <span id="pswdBtn">Show</span>
     </label>
