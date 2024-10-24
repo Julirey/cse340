@@ -225,7 +225,10 @@ td {
 
 #account-form input[type="email"],
 #account-form input[type="password"],
-#account-form input[type="text"]
+#account-form input[type="text"],
+#account-form input[type="number"],
+#account-form textarea,
+#account-form select
 {   
     background-color: #eee;
     display: block;
@@ -236,7 +239,8 @@ td {
     width: 100%;
 }
 
-#account-form input[type="submit"] {
+#account-form input[type="submit"],
+#management-panel a {
   display: block;
   border: none;
   background-color: var(--primary-color);
@@ -268,6 +272,22 @@ td {
   color: white;
   border: none;
   cursor: pointer;
+}
+
+/* Management page */
+#management-panel {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  list-style: none;
+  text-align: center;
+  padding: 0;
+}
+
+#management-panel a {
+  text-decoration: none;
+  padding: 50px;
+  margin: 0;
 }
 
 /* Utilities */

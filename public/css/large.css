@@ -58,4 +58,10 @@
   .form-container {
     max-width: 500px;
   }
+
+  /* Management page */
+  #management-panel {
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
 }
