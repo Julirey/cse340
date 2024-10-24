@@ -94,7 +94,7 @@ footer p {
 }
 
 .linkbox {
-  color: rgb(26, 26, 49);
+  color: var(--secondary-color);
   background: var(--primary-color);
   padding: 10px 20px;
   text-decoration: none;
@@ -244,7 +244,7 @@ td {
   display: block;
   border: none;
   background-color: var(--primary-color);
-  color: #fff;
+  color: var(--secondary-color);
   font-weight: bold;
   border-radius: 6px;
   padding: .8rem;
@@ -292,7 +292,7 @@ td {
 
 /* Utilities */
 .notice {
-  color: red;
+  color: darkred;
   font-style: italic;
 }
 
