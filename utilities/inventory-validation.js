@@ -15,6 +15,8 @@ validate.classificationRules = () => {
       .notEmpty()
       .isLength({ min: 1 })
       .withMessage("Please provide a classification name.")
+      .isAlphanumeric()
+      .withMessage("Classification must contain only alphanumeric characters.")
       .custom(async (classification_name) => {
         const classificationExists = await invModel.checkExistingClassification("name", classification_name)
         if (classificationExists){
@@ -74,7 +76,7 @@ validate.inventoryRules = () => {
       .notEmpty()
       .isLength({ min: 1 })
       .withMessage("Please provide a price.")
-      .isNumeric({ min: 0 })
+      .isFloat({ min: 0 })
       .withMessage("The price must be a positive number."),
 
     // inventory miles is required and must be a positive interger
@@ -93,7 +95,9 @@ validate.inventoryRules = () => {
       .escape()
       .notEmpty()
       .isLength({ min: 1 })
-      .withMessage("Please provide a color."),
+      .withMessage("Please provide a color.")
+      .isAlphanumeric()
+      .withMessage("Color must contain only alphanumeric characters."),
 
     // classification id is required and must be string
     body("classification_id")
