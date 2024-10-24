@@ -269,7 +269,7 @@ td {
   font-weight: bold;
   background: var(--primary-color);
   border-radius: 5px;
-  color: white;
+  color: var(--secondary-color);
   border: none;
   cursor: pointer;
 }
