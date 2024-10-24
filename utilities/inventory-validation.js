@@ -102,8 +102,6 @@ validate.inventoryRules = () => {
       .notEmpty()
       .isLength({ min: 1 })
       .withMessage("Please choose a classification.")
-      .isInt({ min: 0 })
-      .withMessage("The miles must be a positive number.")
       .custom(async (classification_id) => {
         console.log(classification_id)
         const classificationExists = await invModel.checkExistingClassification("id", classification_id)
@@ -120,7 +118,7 @@ validate.inventoryRules = () => {
       .isLength({ min: 1 })
       .withMessage("Please provide an image"),
 
-    // inventory make is required and must be string
+    // inventory thumbnail is required and must be string
     body("inv_thumbnail")
       .trim()
       .escape()
@@ -141,7 +139,7 @@ validate.checkClassificationData = async (req, res, next) => {
     let nav = await utilities.getNav()
     res.render("inventory/add-classification", {
       errors,
-      title: "Add Vehicle",
+      title: "Add Classification",
       nav,
       classification_name,
     })
@@ -162,7 +160,7 @@ validate.checkInventoryData = async (req, res, next) => {
     let list = await utilities.getClassificationList(classification_id)
     res.render("inventory/add-inventory", {
       errors,
-      title: "Login",
+      title: "Add Vehicle",
       nav,
       list,
       inv_make,
