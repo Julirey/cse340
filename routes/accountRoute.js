@@ -24,20 +24,10 @@ router.post(
   "/login",
   regValidate.loginRules(),
   regValidate.checkLoginData,
-  utilities.handleErrors(
-    // Temporary measure to allow testing 
-   async (req, res) => {
-    let nav = await utilities.getNav()
-    req.flash(
-      "notice",
-      `You've successfully logged in. Welcome!`
-    )
-    res.status(200).render("account/login", {
-      title: "Login",
-      nav,
-      errors: null
-    })
-  })
+  utilities.handleErrors(accountController.accountLogin)
 )
+
+// Route to build account management view
+router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildAccountManagement));
 
 module.exports = router;
