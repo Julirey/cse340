@@ -95,6 +95,7 @@ invCont.addClassification = async function (req, res) {
 
   if (inventoryResult) {
     nav = await utilities.getNav()
+    classificationList = await utilities.getClassificationList()
     req.flash(
       "notice",
       `${classification_name} has been successfully added to the classifications.`
