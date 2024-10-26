@@ -88,6 +88,7 @@ invCont.buildAddInventory = async function (req, res, next) {
  * *************************************** */
 invCont.addClassification = async function (req, res) {
   let nav = await utilities.getNav()
+  let classificationList = await utilities.getClassificationList()
   const { classification_name } = req.body
 
   const inventoryResult = await invModel.addClassification(classification_name)
@@ -102,6 +103,7 @@ invCont.addClassification = async function (req, res) {
       title: "Management",
       nav,
       errors: null,
+      classificationList,
     })
   } else {
     req.flash("notice", "Sorry, the management process to add a new classification failed.")
@@ -143,6 +145,7 @@ invCont.addInventory = async function (req, res) {
       title: "Management",
       nav,
       errors: null,
+      classificationList,
     })
   } else {
     req.flash("notice", "Sorry, the management process to add a new vehicle failed.")
