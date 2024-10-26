@@ -1,0 +1,131 @@
+<!-- The Content Heading -->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/') 
+} %>
+
+<!-- Flash message -->
+<%- messages() %>
+
+<!-- Error messages -->
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<!-- Inventory form -->
+<div class="form-container">
+  <form action="/inv/update" method="POST" id="account-form" class="updateForm">
+    <label>Make:
+    <input
+      type="text"
+      name="inv_make"
+      value="<%= inv_make %>"
+      required
+      pattern="^[a-zA-Z0-9]+$"
+      title="Make name must be alphanumeric characters without spaces"
+      placeholder="Vehicle name"
+    ></label>
+
+    <label>Model:
+    <input
+      type="text"
+      name="inv_model"
+      value="<%= inv_model %>"
+      required
+      title="Model name must be alphanumeric characters without spaces"
+      pattern="^[a-zA-Z0-9]+$"
+      placeholder="Vehicle model"
+    ></label>
+
+    <label>Year:
+    <input
+      type="number"
+      name="inv_year"
+      value="<%= inv_year %>"
+      required
+      min="1900"
+      max="2100"
+      title="Year must be a valid 4-digit number between 1900 and 2100"
+      placeholder="4-digit year"
+    ></label>
+
+    <label>Description:
+    <textarea
+      name="inv_description"
+      required
+      placeholder="Edit the description of the vehicle"
+    ><%= inv_description %></textarea
+    ></label>
+
+    <label>Price:
+    <input
+      type="number"
+      name="inv_price"
+      value="<%= inv_price %>"
+      required
+      min="0"
+      step="0.01"
+      title="Price must be a valid number (decimal or interger)"
+      placeholder="Decimal or interger"
+    ></label>
+
+    <label>Miles:
+    <input
+      type="number"
+      name="inv_miles"
+      value="<%= inv_miles %>"
+      required
+      min="0"
+      step="1"
+      title="Miles must be a positive number"
+      placeholder="Positive numbers only"
+    ></label>
+
+    <label>Color:
+    <input
+      type="text"
+      name="inv_color"
+      value="<%= inv_color %>"
+      required
+      title="Color must be alphanumeric characters without spaces"
+      pattern="^[a-zA-Z0-9]+$"
+      placeholder="Enter the vehicle color"
+    ></label>
+    
+    <label>Classification:
+    <%- list %>
+    </label>
+
+    <label>Vehicle Image:
+    <input
+      type="text"
+      name="inv_image"
+      placeholder="/images/vehicles/no-image.png"
+      value="<%= inv_image %>"
+      required
+      title="Default image for the vehicle"
+    ></label>
+
+    <label>Vehicle Thumbnail:
+    <input
+      type="text"
+      name="inv_thumbnail"
+      placeholder="/images/vehicles/no-image-tn.png"
+      value="<%= inv_thumbnail %>"
+      required
+      title="Default thumbnail image for the vehicle"
+    ></label>
+
+    <input type="submit" value="Update Vehicle" disabled>
+    <input type="hidden" name="inv_id"
+    <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+    <% } %>>
+  </form>
+</div>
+
+<script src="/js/inv-update.js"></script>

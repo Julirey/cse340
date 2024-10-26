@@ -191,7 +191,9 @@ footer p {
   font-weight: bold;
 }
 
-.info-table {
+.info-table,
+#inventoryDisplay
+{
   border: solid grey 1px;
   border-radius: 5px;
 }
@@ -200,7 +202,9 @@ td {
   padding: 20px;
 }
 
-.info-table tbody tr:nth-child(even) {
+.info-table tbody tr:nth-child(even),
+#inventoryDisplay tbody tr:nth-child(odd)
+{
   background-color: #f0f0f0;
 }
 
@@ -228,15 +232,15 @@ td {
 #account-form input[type="text"],
 #account-form input[type="number"],
 #account-form textarea,
-#account-form select
+#classificationList
 {   
-    background-color: #eee;
-    display: block;
-    border: solid 1px #999;
-    border-radius: 6px;
-    padding: .75rem;
-    color: #555;
-    width: 100%;
+  background-color: #eee;
+  display: block;
+  border: solid 1px #999;
+  border-radius: 6px;
+  padding: .75rem;
+  color: #555;
+  width: 100%;
 }
 
 #account-form input[type="submit"],
@@ -289,6 +293,11 @@ td {
   padding: 50px;
   margin: 0;
 }
+
+#inventoryDisplay {
+  margin: 20px auto;
+}
+
 
 /* Utilities */
 .notice {
