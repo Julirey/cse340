@@ -252,6 +252,43 @@ invCont.updateInventory = async function (req, res, next) {
 }
 
 /* ***************************
+ *  Deliver the Delete inventory view
+ * ************************** */
+invCont.buildDeleteInventory = async function (req, res, next) {
+  const inv_id  = parseInt(req.params.inventory_id )
+  let nav = await utilities.getNav()
+  let itemData  = await invModel.getDetailsByInventoryId(inv_id)
+  itemData = itemData[0];
+  const itemName = `${itemData.inv_make} ${itemData.inv_model}`
+  res.render("./inventory/delete-inventory", {
+    title: "Delete " + itemName,
+    nav,
+    errors: null,
+    inv_make: itemData.inv_make,
+    inv_model: itemData.inv_model,
+    inv_year: itemData.inv_year,
+    inv_price: itemData.inv_price,
+    inv_id: itemData.inv_id
+  })
+}
+
+/* ***************************
+ *  Delete Inventory Data
+ * ************************** */
+invCont.deleteInventory = async function (req, res, next) {
+  const inv_id = parseInt(req.body.inv_id)
+  const deleteResult = await invModel.deleteInventory(inv_id)
+
+  if (deleteResult) {
+    req.flash("notice", `The vehicle was deleted successfully.`)
+    res.redirect("/inv/")
+  } else {
+    req.flash("notice", "Sorry, the deletion failed.")
+    res.status(501).redirect(`/inv/delete/${inv_id}`);
+  }
+}
+
+/* ***************************
  *  Purposely cause error 500
  * ************************** */
 invCont.causeError = (req, res, next) => {

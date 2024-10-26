@@ -1,0 +1,80 @@
+<!-- The Content Heading -->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/') 
+} %>
+
+<!-- Flash message -->
+<%- messages() %>
+
+<!-- Error messages -->
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<p class="notice">Confirm Deletion - The delete is permanent.</p>
+
+<!-- Inventory form -->
+<div class="form-container">
+  <form action="/inv/delete" method="POST" id="account-form">
+    <label>Make:
+    <input
+      type="text"
+      name="inv_make"
+      value="<%= inv_make %>"
+      required
+      pattern="^[a-zA-Z0-9]+$"
+      title="Make name of the vehicle"
+      placeholder="Vehicle name"
+      readonly
+    ></label>
+
+    <label>Model:
+    <input
+      type="text"
+      name="inv_model"
+      value="<%= inv_model %>"
+      required
+      title="Model name of the vehicle"
+      pattern="^[a-zA-Z0-9]+$"
+      placeholder="Vehicle model"
+      readonly
+    ></label>
+
+    <label>Year:
+    <input
+      type="number"
+      name="inv_year"
+      value="<%= inv_year %>"
+      required
+      min="1900"
+      max="2100"
+      title="Year the vehicle was made"
+      placeholder="4-digit year"
+      readonly
+    ></label>
+
+    <label>Price:
+    <input
+      type="number"
+      name="inv_price"
+      value="<%= inv_price %>"
+      required
+      min="0"
+      step="0.01"
+      title="Price of the vehicle"
+      placeholder="Decimal or interger"
+      readonly
+    ></label>
+      
+    <input type="submit" value="Delete Vehicle">
+    <input type="hidden" name="inv_id"
+    <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+    <% } %>>
+  </form>
+</div>
