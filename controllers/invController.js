@@ -43,12 +43,12 @@ invCont.buildByInventoryID = async function (req, res, next) {
  * ************************** */
 invCont.buildManagement = async function (req, res, next) {
   let nav = await utilities.getNav()
-  const list = await utilities.getClassificationList()
+  const classificationList = await utilities.getClassificationList()
   res.render("./inventory/management", {
     title: "Management",
     nav,
     errors: null,
-    list,
+    classificationList,
   })
 }
 
@@ -69,12 +69,12 @@ invCont.buildAddClassification = async function (req, res, next) {
  * ************************** */
 invCont.buildAddInventory = async function (req, res, next) {
   let nav = await utilities.getNav()
-  let list = await utilities.getClassificationList()
+  let classificationList = await utilities.getClassificationList()
   res.render("./inventory/add-inventory", {
     title: "Add Vehicle",
     nav,
     errors: null,
-    list,
+    classificationList,
   })
 }
 
@@ -113,7 +113,7 @@ invCont.addClassification = async function (req, res) {
  * *************************************** */
 invCont.addInventory = async function (req, res) {
   let nav = await utilities.getNav()
-  let list = await utilities.getClassificationList()
+  let classificationList = await utilities.getClassificationList()
   const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body
 
   const inventoryResult = await invModel.addInventory(
@@ -145,7 +145,7 @@ invCont.addInventory = async function (req, res) {
       title: "Management",
       nav,
       errors: null,
-      list,
+      classificationList,
     })
   }
 }
@@ -171,13 +171,13 @@ invCont.buildEditInventory = async function (req, res, next) {
   let nav = await utilities.getNav()
   let itemData  = await invModel.getDetailsByInventoryId(inv_id)
   itemData = itemData[0];
-  let list = await utilities.getClassificationList(itemData.classification_id)
+  let classificationList = await utilities.getClassificationList(itemData.classification_id)
   const itemName = `${itemData.inv_make} ${itemData.inv_model}`
   res.render("./inventory/edit-inventory", {
     title: "Edit " + itemName,
     nav,
     errors: null,
-    list,
+    classificationList,
     inv_make: itemData.inv_make,
     inv_model: itemData.inv_model,
     inv_year: itemData.inv_year,
@@ -219,14 +219,14 @@ invCont.updateInventory = async function (req, res, next) {
     req.flash("notice", `The ${itemName} was successfully updated.`)
     res.redirect("/inv/")
   } else {
-    const list = await utilities.buildClassificationList(classification_id)
+    const classificationList = await utilities.getClassificationList(classification_id)
     const itemName = `${inv_make} ${inv_model}`
     req.flash("notice", "Sorry, the insert failed.")
     res.status(501).render("inventory/edit-inventory", {
     title: "Edit " + itemName,
     nav,
     errors: null,
-    list,
+    classificationList,
     inv_make,
     inv_model,
     inv_year,
