@@ -17,15 +17,17 @@
  </ul>
 <% } %>
 
-<!-- Register form -->
+<!-- Update Forms-->
 <div class="form-container">
-  <form action="/account/register" method="POST" class="account-form">
+  <!-- Account Update Form -->
+   <h2>Update Account</h2>
+  <form action="/account/update" method="POST" class="account-form updateForm">
     <label>First name:
     <input
       type="text"
       name="account_firstname"
       required
-      value="<%= locals.account_firstname %>"
+      value="<%= account_firstname %>"
     >
     </label>
 
@@ -34,7 +36,7 @@
       type="text"
       name="account_lastname"
       required
-      value="<%= locals.account_lastname %>"
+      value="<%= account_lastname %>"
     >
     </label>
 
@@ -43,11 +45,20 @@
       type="email"
       name="account_email"
       required
-      value="<%= locals.account_email %>"
+      value="<%= account_email %>"
     >
     </label>
 
-    <label>Password:
+    <input type="submit" value="Update Account" disabled>
+    <input type="hidden" name="account_id"
+    <% if(locals.account_id) { %> value="<%= locals.account_id %>"
+    <% } %>>
+  </form>
+
+  <!-- Change Password Form -->
+   <h2>Change Password</h2>
+  <form action="/account/change-password" method="POST" class="account-form updateForm">
+    <label>New Password:
       <span class="notice">Must be at least 12 characters long, and must include 1 capital letter, 1 number, and 1 special character.</span> 
     <input
       id="pword"
@@ -59,8 +70,13 @@
     >
     <span id="pswdBtn">Show</span>
     </label>
-    <input type="submit" value="REGISTER">
+
+    <input type="submit" value="Change Password" disabled>
+    <input type="hidden" name="account_id"
+    <% if(locals.account_id) { %> value="<%= locals.account_id %>"
+    <% } %>>
   </form>
 </div>
 
 <script src="/js/script.js"></script>
+<script src="/js/inv-update.js"></script>

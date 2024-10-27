@@ -60,7 +60,7 @@
   }
 
   /* Management page */
-  #management-panel {
+  .management-panel, #tools {
     flex-direction: row;
     justify-content: space-evenly;
   }

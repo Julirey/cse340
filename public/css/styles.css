@@ -221,17 +221,17 @@ td {
   border-radius: 10px;
 }
 
-#account-form label {
+.account-form label {
   display: block;
   padding-top: 1rem;
   color: var(--secondary-color);
 }
 
-#account-form input[type="email"],
-#account-form input[type="password"],
-#account-form input[type="text"],
-#account-form input[type="number"],
-#account-form textarea,
+.account-form input[type="email"],
+.account-form input[type="password"],
+.account-form input[type="text"],
+.account-form input[type="number"],
+.account-form textarea,
 #classificationList
 {   
   background-color: #eee;
@@ -243,8 +243,8 @@ td {
   width: 100%;
 }
 
-#account-form input[type="submit"],
-#management-panel a {
+.account-form input[type="submit"],
+.management-panel a {
   display: block;
   border: none;
   background-color: var(--primary-color);
@@ -256,11 +256,11 @@ td {
   cursor: pointer;
 }
 
-#account-form input:required:valid {
+.account-form input:required:valid {
   border-right: solid 8px green;
 }
 
-#account-form input:required:invalid {
+.account-form input:required:invalid {
   border-right: solid 8px red;
 }
 
@@ -279,16 +279,16 @@ td {
 }
 
 /* Management page */
-#management-panel {
+.management-panel, #tools {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   flex-direction: column;
   list-style: none;
   text-align: center;
   padding: 0;
 }
 
-#management-panel a {
+.management-panel a {
   text-decoration: none;
   padding: 50px;
   margin: 0;

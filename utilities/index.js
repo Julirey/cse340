@@ -153,4 +153,14 @@ Util.checkLogin = (req, res, next) => {
  }
 }
 
+Util.checkAccess = (req, res, next) => {
+  const account = res.locals.accountData.account_type
+  if (account === "Employee" || account === "Admin") {
+    next()
+  } else {
+    req.flash("notice", "You do not have access permission. Please log in with an appropiate account type to access it.")
+    res.redirect("/account/login")
+  }
+}
+
 module.exports = Util
