@@ -7,3 +7,62 @@
 
 <!-- Details Display -->
 <%- details %>
+
+<!-- Reviews Display -->
+ <h2>Customer Reviews</h2>
+<%- reviews %>
+
+<!-- Review form -->
+<% if(locals.loggedin) { %>
+  <h2>Add Your Own Review</h2>
+  <!-- Flash message -->
+  <%- messages() %>
+  
+  <!-- Error messages -->
+  <% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
+  <!-- Review form -->
+  <div class="form-container" >
+    <form action="/inv/add-review/" method="POST" class="account-form">
+      <label>Screen Name:
+        <input
+          type="text"
+          name="screen_name"
+          value="<%= `${Array.from(locals.accountData.account_firstname)[0]}${locals.accountData.account_lastname} `%>"
+          required
+          pattern="^[a-zA-Z0-9]+$"
+          title="Name other people will see"
+          placeholder="Screen Name"
+          readonly
+        ></label>
+  
+      <label>Review:
+        <textarea
+          name="review_text"
+          required
+          placeholder="Enter a review of the vehicle"
+        ><%= locals.review_text %></textarea
+        ></label>
+  
+      <input type="submit" value="Submit Review">
+      
+      <input type="hidden" name="inv_id"
+      <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+      <% } %>>
+
+      <input type="hidden" name="account_id" value="<%= locals.accountData.account_id %>"
+      <% if(locals.account_id) { %> value="<%= locals.account_id %>"
+      <% } %>>
+      </form>
+    </div>
+    <% } else { %>
+      <p>
+        You must <a href="/account/login">login</a> to write a review.
+      </p>
+<% } %>

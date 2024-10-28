@@ -1,0 +1,50 @@
+<!-- The Content Heading -->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/') 
+} %>
+
+<!-- Flash message -->
+<%- messages() %>
+
+<!-- Error messages -->
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<!-- Review form -->
+<div class="form-container">
+  <form action="/account/edit-review" method="POST" class="account-form updateForm">
+    <label>Review Date:
+      <input
+        type="text"
+        name="review_date"
+        value="<%= locals.review_date %>"
+        required
+        title="Date of the review"
+        placeholder="Review Date"
+        readonly
+      ></label>
+
+    <label>Review Text:
+      <textarea
+        name="review_text"
+        required
+        placeholder="Enter a review of the vehicle"
+        title="Review of the vehicle"
+      ><%= locals.review_text %></textarea
+      ></label>
+
+    <input type="submit" value="Update Review" disabled>
+    <input type="hidden" name="review_id"
+    <% if(locals.review_id) { %> value="<%= locals.review_id %>"
+    <% } %>>
+  </form>
+</div>
+
+<script src="/js/inv-update.js"></script>

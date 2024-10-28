@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model")
+const reviewModel = require("../models/review-model")
 const Util = {}
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
@@ -161,6 +162,72 @@ Util.checkAccess = (req, res, next) => {
     req.flash("notice", "You do not have access permission. Please log in with an appropiate account type to access it.")
     res.redirect("/account/login")
   }
+}
+
+Util.checkReviewOwner = async (req, res, next) => {
+  let review_id
+  if (req.params.review_id) {
+    review_id = parseInt(req.params.review_id)
+  } else {
+    review_id = parseInt(req.body.review_id)
+  }
+  const reviewData = await reviewModel.getReviewById(review_id)
+  if (reviewData) {
+    const account_id = res.locals.accountData.account_id
+    if ( reviewData.account_id === account_id ) {
+      next()
+    } else {
+      req.flash("notice", "You are not the owner of that review. Please log in with the respective account to access it.")
+      res.redirect("/account/")
+    }
+  } else {
+    req.flash("notice", "The requested review does not exist.")
+    res.redirect("/account/")
+  }
+}
+
+/* **************************************
+ * Constructs the review list html
+ * ************************************ */
+Util.buildReviewList = async function (data) {
+  let grid
+  if(data.length > 0){
+    grid = '<ul id="review-display">'
+    data.forEach(review => { 
+      grid += '<li>'
+      grid += `<p><span class="first-word">${Array.from(review.account_firstname)[0]}${review.account_lastname}</span> wrote on ${new Intl.DateTimeFormat('en-US', { month: "long", day: "numeric", year: "numeric" }).format(new Date(review.review_date))}</p>
+               <hr>
+               <div class="review-box">
+               <p>${review.review_text}</p>
+               </div>`
+      grid += '</li>'
+    })
+    grid += '</ul>'
+  } else { 
+    grid = '<p class="warning">There are no reviews yet. You can be the first.</p>'
+  }
+  return grid
+}
+
+/* ****************************************
+ *  Constructs the review table html
+ * ************************************ */
+Util.buildReviewTable = async function (data) { 
+  let dataTable 
+  if(data.length > 0){
+    // Set up the table body 
+    dataTable = '<table class="review-table"><tbody>'; 
+    // Iterate over all reviews in the array and put each in a row 
+    data.forEach(review => { 
+      dataTable += `<tr><td>Reviewed the ${review.inv_year} ${review.inv_make} ${review.inv_model} on ${new Intl.DateTimeFormat('en-US', { month: "long", day: "numeric", year: "numeric" }).format(new Date(review.review_date))}</td>`; 
+      dataTable += `<td><a href='/account/edit-review/${review.review_id}' title='Click to update'>Edit</a></td>`; 
+      dataTable += `<td><a href='/account/delete-review/${review.review_id}' title='Click to delete'>Delete</a></td></tr>`; 
+    }) 
+    dataTable += '</tbody></table>'; 
+  } else {
+    dataTable = '<p class="warning">You have not written any review yet.</p>'
+  }
+  return dataTable; 
 }
 
 module.exports = Util

@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model")
+const reviewModel = require("../models/review-model")
 const utilities = require("../utilities/")
 
 const invCont = {}
@@ -32,6 +33,8 @@ invCont.buildByInventoryID = async function (req, res, next) {
   const data = await invModel.getDetailsByInventoryId(inventoryId)
   const details = await utilities.buildDetails(data)
   let nav = await utilities.getNav()
+  const reviewData = await reviewModel.getReviewByInventoryId(inventoryId)
+  let reviews = await utilities.buildReviewList(reviewData)
   const carName = data[0].inv_make
   const carModel = data[0].inv_model
   const carYear = data[0].inv_year
@@ -40,6 +43,9 @@ invCont.buildByInventoryID = async function (req, res, next) {
     year: carYear,
     nav,
     details,
+    reviews,
+    errors: null,
+    inv_id: inventoryId
   })
 }
 
@@ -285,6 +291,47 @@ invCont.deleteInventory = async function (req, res, next) {
   } else {
     req.flash("notice", "Sorry, the deletion failed.")
     res.status(501).redirect(`/inv/delete/${inv_id}`);
+  }
+}
+
+/* ****************************************
+ *  Process add review
+ * *************************************** */
+invCont.addReview = async function (req, res) {
+  let nav = await utilities.getNav()
+  const { review_text, inv_id, account_id } = req.body
+  
+  const reviewResult = await reviewModel.addReview(
+    review_text,
+    inv_id,
+    account_id
+  )
+  
+  if (reviewResult) {
+    req.flash(
+      "notice",
+      `The review has been added successfully.`
+    )
+    res.status(201).redirect(`/inv/detail/${inv_id}`)
+  } else {
+    const reviewData = await reviewModel.getReviewByInventoryId(inv_id)
+    let reviews = await utilities.buildReviewList(reviewData)
+    const data = await invModel.getDetailsByInventoryId(inventoryId)
+    const details = await utilities.buildDetails(data)
+    const carName = data[0].inv_make
+    const carModel = data[0].inv_model
+    const carYear = data[0].inv_year
+    req.flash("notice", "Sorry, the process to add a review failed.")
+    res.status(501).render("./inventory/details", {
+      title: carName + " " + carModel,
+      year: carYear,
+      nav,
+      details,
+      reviews,
+      review_text,
+      inv_id,
+      account_id,
+    })
   }
 }
 

@@ -1,4 +1,5 @@
 const accountModel = require("../models/account-model")
+const reviewModel = require("../models/review-model")
 const utilities = require("../utilities/")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
@@ -126,12 +127,15 @@ async function buildAccountManagement(req, res, next) {
   const accountId = parseInt(res.locals.accountData.account_id)
   let accountData =  await accountModel.getAccountById(accountId)
   accountData = accountData[0];
+  const reviewData = await reviewModel.getReviewByAccountId(accountId)
+  let reviewTable = await utilities.buildReviewTable(reviewData)
   res.render("account/account-management", {
     title: "Account Management",
     nav,
     errors: null,
     account_firstname: accountData.account_firstname,
     account_type: accountData.account_type,
+    reviewTable,
   })
 }
 
@@ -246,4 +250,88 @@ async function accountLogout(req, res) {
   res.redirect("/account/login");
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, buildUpdate, updateAccount, changePassword, accountLogout }
+/* ****************************************
+ *  Deliver review edit view
+ * *************************************** */
+async function buildEditReview(req, res, next) {
+  let nav = await utilities.getNav()
+  const review_id = parseInt(req.params.review_id)
+  const reviewData =  await reviewModel.getReviewById(review_id)
+  let reviewName = `${reviewData.inv_year} ${reviewData.inv_make} ${reviewData.inv_model}`
+  let review_date = `${new Intl.DateTimeFormat('en-US', { month: "long", day: "numeric", year: "numeric" }).format(new Date(reviewData.review_date))}`
+  res.render("account/edit-review", {
+    title: `Edit ${reviewName} Review`,
+    nav,
+    errors: null,
+    review_date,
+    review_text: reviewData.review_text,
+    review_id,
+  })
+}
+
+/* ***************************
+ *  Update Review Data
+ * ************************** */
+async function updateReview (req, res, next) {
+  let nav = await utilities.getNav()
+  const { review_date, review_text, review_id } = req.body
+
+  const updateResult = await reviewModel.updateReview(
+    review_text, 
+    review_id, 
+  )
+
+  if (updateResult) {
+    req.flash("notice", `The review information was successfully updated.`)
+    res.redirect("/account/")
+  } else {
+    const reviewData =  await reviewModel.getReviewById(review_id)
+    let reviewName = `${reviewData.inv_year} ${reviewData.inv_make} ${reviewData.inv_model}`
+    req.flash("notice", "Sorry, the review update failed.")
+    res.status(501).render("account/edit-review", {
+      title: `Edit ${reviewName} Review`,
+      nav,
+      errors: null,
+      review_date,
+      review_text,
+      review_id,
+    })
+  }
+}
+
+/* ****************************************
+ *  Deliver review Delete view
+ * *************************************** */
+async function buildDeleteReview(req, res, next) {
+  let nav = await utilities.getNav()
+  const review_id = parseInt(req.params.review_id)
+  const reviewData =  await reviewModel.getReviewById(review_id)
+  let reviewName = `${reviewData.inv_year} ${reviewData.inv_make} ${reviewData.inv_model}`
+  let review_date = `${new Intl.DateTimeFormat('en-US', { month: "long", day: "numeric", year: "numeric" }).format(new Date(reviewData.review_date))}`
+  res.render("account/Delete-review", {
+    title: `Delete ${reviewName} Review`,
+    nav,
+    errors: null,
+    review_date,
+    review_text: reviewData.review_text,
+    review_id,
+  })
+}
+
+/* ***************************
+ *  Delete Review Data
+ * ************************** */
+async function deleteReview(req, res, next) {
+  const review_id = parseInt(req.body.review_id)
+  const deleteResult = await reviewModel.deleteReview(review_id)
+
+  if (deleteResult) {
+    req.flash("notice", `The review was deleted successfully.`)
+    res.redirect("/account/")
+  } else {
+    req.flash("notice", "Sorry, the deletion failed.")
+    res.status(501).redirect(`/account/delete-review/${review_id}`);
+  }
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, buildUpdate, updateAccount, changePassword, accountLogout, buildEditReview, updateReview, buildDeleteReview, deleteReview }

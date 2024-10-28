@@ -4,7 +4,7 @@ const router = new express.Router()
 const invController = require("../controllers/invController")
 const utilities = require("../utilities/")
 const inventoryValidate = require("../utilities/inventory-validation")
-
+const reviewValidate = require("../utilities/review-validation")
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
@@ -96,6 +96,15 @@ router.post(
   utilities.checkLogin,
   utilities.checkAccess,
   utilities.handleErrors(invController.deleteInventory)
+);
+
+// Process the add review data
+router.post(
+  "/add-review/",
+  utilities.checkLogin,
+  reviewValidate.reviewRules(),
+  reviewValidate.checkReviewData,
+  utilities.handleErrors(invController.addReview)
 );
 
 // Route to cause error 

@@ -192,7 +192,8 @@ footer p {
 }
 
 .info-table,
-#inventoryDisplay
+#inventoryDisplay,
+.review-table
 {
   border: solid grey 1px;
   border-radius: 5px;
@@ -203,9 +204,27 @@ td {
 }
 
 .info-table tbody tr:nth-child(even),
-#inventoryDisplay tbody tr:nth-child(odd)
+#inventoryDisplay tbody tr:nth-child(odd),
+.review-table tbody tr:nth-child(even)
 {
   background-color: #f0f0f0;
+}
+
+#review-display {
+  list-style-type: none;
+  padding: 0px 20px;
+}
+
+#review-display li {
+  border: solid 1px black;
+  border-left: solid 5px var(--primary-color);
+  border-radius: 0px 5px 5px  0px;
+  padding: 5px;
+  margin-bottom: 20px;
+}
+
+.review-box {
+  padding-bottom: 20px;
 }
 
 /* Error page */
@@ -294,7 +313,8 @@ td {
   margin: 0;
 }
 
-#inventoryDisplay {
+#inventoryDisplay,
+.review-table {
   margin: 20px auto;
 }
 
@@ -307,4 +327,10 @@ td {
 
 .text-center {
   text-align: center;
+}
+
+.warning {
+  color: black;
+  background: lightYellow;
+  padding: 20px 10px;
 }

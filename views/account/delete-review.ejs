@@ -1,0 +1,51 @@
+<!-- The Content Heading -->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/') 
+} %>
+
+<!-- Flash message -->
+<%- messages() %>
+
+<!-- Error messages -->
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<p class="notice">Confirm Deletion - The delete is permanent.</p>
+
+<!-- Review form -->
+<div class="form-container">
+  <form action="/account/delete-review" method="POST" class="account-form">
+    <label>Review Date:
+      <input
+        type="text"
+        name="review_date"
+        value="<%= locals.review_date %>"
+        required
+        title="Date of the review"
+        placeholder="Review Date"
+        readonly
+      ></label>
+
+    <label>Review Text:
+      <textarea
+        name="review_text"
+        required
+        placeholder="Enter a review of the vehicle"
+        title="Review of the vehicle"
+        readonly
+      ><%= locals.review_text %></textarea
+      ></label>
+      
+    <input type="submit" value="Delete Review">
+    <input type="hidden" name="review_id"
+    <% if(locals.review_id) { %> value="<%= locals.review_id %>"
+    <% } %>>
+  </form>
+</div>
