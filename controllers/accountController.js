@@ -308,7 +308,7 @@ async function buildDeleteReview(req, res, next) {
   const reviewData =  await reviewModel.getReviewById(review_id)
   let reviewName = `${reviewData.inv_year} ${reviewData.inv_make} ${reviewData.inv_model}`
   let review_date = `${new Intl.DateTimeFormat('en-US', { month: "long", day: "numeric", year: "numeric" }).format(new Date(reviewData.review_date))}`
-  res.render("account/Delete-review", {
+  res.render("account/delete-review", {
     title: `Delete ${reviewName} Review`,
     nav,
     errors: null,
